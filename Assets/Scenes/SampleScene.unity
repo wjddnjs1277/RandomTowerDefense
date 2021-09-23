@@ -620,6 +620,7 @@ MonoBehaviour:
   - {fileID: 1095603924300094370, guid: 2e0288733d3b717439ff7cbe35b4fabf, type: 3}
   - {fileID: 1200904777108200337, guid: 258a2c377aad21340b22db85c7d48cd3, type: 3}
   - {fileID: 2041836016206166820, guid: 350ed58865c9a6e4086a8c0adc898831, type: 3}
+  - {fileID: 8762406003163654822, guid: bf2f3edb7516f98459b6313b1257603c, type: 3}
   storagePerent: {fileID: 930747084}
   initCount: 5
 --- !u!4 &44845996
@@ -9043,6 +9044,9 @@ MonoBehaviour:
   - {fileID: 6712099033467875793, guid: 1e05c2280f7d01740bd460beca549d3d, type: 3}
   - {fileID: 5050734882833528907, guid: 966b5ce222668a44fa637d1f639107fa, type: 3}
   - {fileID: 707391670364124791, guid: 7bd40ca28dc62784b9b30bf83b3f1d40, type: 3}
+  rareTower:
+  - {fileID: 737031526950881417, guid: 9fcf2aeabd7fa88499341f95fd1c1d04, type: 3}
+  epicTower: []
   nodeParent: {fileID: 1880472377}
 --- !u!1001 &1407486620
 PrefabInstance:

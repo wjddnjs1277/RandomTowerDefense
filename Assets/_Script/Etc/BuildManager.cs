@@ -7,6 +7,8 @@ public class BuildManager : Singleton<BuildManager>
     [SerializeField] public GameObject preview;
     [SerializeField] Color unableBuildColor;
     [SerializeField] GameObject[] tower;
+    [SerializeField] GameObject[] rareTower;
+    [SerializeField] GameObject[] epicTower;
     [SerializeField] Transform nodeParent;
 
     Color origin;
@@ -32,8 +34,14 @@ public class BuildManager : Singleton<BuildManager>
         preview.GetComponent<Renderer>().material.color = isBuild ? origin : unableBuildColor; 
     }
 
-    public void Combine(Node selectNode)
+    public bool Combine(Node selectNode)
     {
+        if (selectNode.Tower == null)
+            return false;
+
+        if (selectNode.Tower.rank == Tower.TOWER_RANK.Epic)
+            return false;
+
         for(int i= 0; i < nodeParent.transform.childCount; i++)
         {
             Node node = nodeParent.GetChild(i).GetComponent<Node>();
@@ -42,11 +50,34 @@ public class BuildManager : Singleton<BuildManager>
             {
                 if(selectNode!=node && selectNode.Tower == node.Tower)
                 {
-                    node.Combine();
-                    selectNode.Combine();
-                    return;
+                    node.RemoveTower();
+                    selectNode.RemoveTower();
+
+
+
+                    return true;
                 }    
             }                
         }
+
+        return false;
+    }
+
+    public GameObject ConbineTower(Tower tower)
+    {
+        if (tower == null)
+            return null;
+
+        int index;
+        switch (tower.rank)
+        {
+            case Tower.TOWER_RANK.Normal:
+                index = Random.Range(0, rareTower.Length);
+                return rareTower[index];
+            case Tower.TOWER_RANK.Rare:
+                index = Random.Range(0, epicTower.Length);
+                return epicTower[index];
+        }
+        return null;
     }
 }

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    enum State
-    {
-        None,
-        Build,
-    }
 
     [SerializeField] Color selectColor;
 
@@ -39,13 +34,16 @@ public class Node : MonoBehaviour
     {
         renderer.material.color = tower == null ? origin : selectColor;
 
-       
     }
 
-    public void Combine()
+    public void RemoveTower()
     {
         tower = null;
         Destroy(towerObj);
+    }
+    public void CombineTower()
+    {
+
     }
 
     private void OnMouseEnter()
@@ -68,8 +66,14 @@ public class Node : MonoBehaviour
         
         if(Player.Instance.state == Player.PLAYER_STATE.Combine)
         {
-            buildManager.Combine(this);
-            Player.Instance.state = Player.PLAYER_STATE.None;
+            GameObject obj = buildManager.ConbineTower(tower);
+            if(buildManager.Combine(this) == true)
+            {
+                tower = obj.GetComponent<Tower>();
+                Vector3 buildPos = new Vector3(transform.position.x, offsetY, transform.position.z);
+                towerObj = Instantiate(obj, buildPos, Quaternion.identity);
+                Player.Instance.state = Player.PLAYER_STATE.None;
+            }
         }
     }
 

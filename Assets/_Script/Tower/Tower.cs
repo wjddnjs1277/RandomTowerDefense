@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public enum TOWER_TYPE
+    public enum TOWER_RANK
     {
-        Normal,         // 일반
-        Multiple,       // 다중
-        Fixing,         // 고정
+        Normal,
+        Rare,
+        Epic,
     }
     // 사거리, 목표, 미사일  이펙트 .,...
     // 사거리 안이면 목표 하나를 공격
@@ -20,6 +20,8 @@ public class Tower : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
 
     Transform target;
+    public TOWER_RANK rank;
+
 
     float nextAttackTime;
 
