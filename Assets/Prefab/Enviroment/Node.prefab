@@ -53,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,4 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce45370bec7e494e8ab84023ea416e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectColor: {r: 0.0020964355, g: 0.01886791, b: 0, a: 0}
+  rankColors:
+  - {r: 0, g: 1, b: 0.9017179, a: 0}
+  - {r: 0.0047169924, g: 0.25639167, b: 1, a: 0}
+  - {r: 1, g: 0.60157406, b: 0, a: 0}
+  tower: {fileID: 0}
+  towerObj: {fileID: 0}

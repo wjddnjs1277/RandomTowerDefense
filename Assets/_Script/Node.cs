@@ -5,22 +5,27 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
 
-    [SerializeField] Color selectColor;
+    [SerializeField] Color[] rankColors;
 
     BuildManager buildManager;
-    Tower tower;
-    GameObject towerObj;
+    public Tower tower;
+    public GameObject towerObj;
 
     new Renderer renderer;
     Color origin;
 
-    float offsetY = 0.25f;
-    public Tower Tower => tower;
     bool isBuildTower
     {
         get
         {
             return tower == null && Player.Instance.isBuild == true;
+        }
+    }
+    bool isCombineTower
+    {
+        get
+        {
+            return tower != null && Player.Instance.state == Player.PLAYER_STATE.Combine;
         }
     }
 
@@ -32,18 +37,39 @@ public class Node : MonoBehaviour
     }
     private void Update()
     {
-        renderer.material.color = tower == null ? origin : selectColor;
+        SwitchColor();
 
+    }
+
+    void SwitchColor()
+    {
+        int index = 0;
+
+        if (tower != null)
+        {
+            Tower.TOWER_RANK rank = tower.GetComponent<Tower>().rank;
+
+            switch (rank)
+            {
+                case Tower.TOWER_RANK.Normal:
+                    index = 0;
+                    break;
+                case Tower.TOWER_RANK.Rare:
+                    index = 1;
+                    break;
+                case Tower.TOWER_RANK.Epic:
+                    index = 2;
+                    break;
+            }
+        }
+
+        renderer.material.color = tower == null ? origin : rankColors[index];
     }
 
     public void RemoveTower()
     {
         tower = null;
         Destroy(towerObj);
-    }
-    public void CombineTower()
-    {
-
     }
 
     private void OnMouseEnter()
@@ -56,24 +82,12 @@ public class Node : MonoBehaviour
     {
         if(isBuildTower)
         {
-            GameObject obj = buildManager.BuildTower();
-            tower = obj.GetComponent<Tower>();
-            Vector3 buildPos = new Vector3(transform.position.x, offsetY, transform.position.z);
-            towerObj = Instantiate(obj, buildPos, Quaternion.identity);
-            Player.Instance.Money -= 20;
-            Player.Instance.ChangeStateNone();
+            buildManager.Build(this);
         }
         
-        if(Player.Instance.state == Player.PLAYER_STATE.Combine)
+        if(isCombineTower)
         {
-            GameObject obj = buildManager.ConbineTower(tower);
-            if(buildManager.Combine(this) == true)
-            {
-                tower = obj.GetComponent<Tower>();
-                Vector3 buildPos = new Vector3(transform.position.x, offsetY, transform.position.z);
-                towerObj = Instantiate(obj, buildPos, Quaternion.identity);
-                Player.Instance.state = Player.PLAYER_STATE.None;
-            }
+            buildManager.Combine(this);
         }
     }
 

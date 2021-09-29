@@ -39,7 +39,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
-        WaveInit();
+        //WaveInit();
     }
 
     private void Update()
@@ -51,6 +51,7 @@ public class WaveSpawner : MonoBehaviour
         {
             StartCoroutine(SpawnWave());
             startTime = timeBetweenWaves;
+            Player.Instance.Money += 40;
             return;
         }
 
@@ -80,6 +81,14 @@ public class WaveSpawner : MonoBehaviour
 
     public void WaveInit()
     {
-        //waveList = JsonManager.LoadJsonList<WaveData>(Application.streamingAssetsPath,"WaveData");
+        waveList = JsonManager.LoadJsonList<WaveData>(Application.streamingAssetsPath,"wavedata");
+        
+        foreach(var wave in waveList)
+        {
+            Debug.Log(wave.enemy.name);
+            Debug.Log(wave.count);
+            Debug.Log(wave.spawnTime);
+            Debug.Log(wave.speed);
+        }
     }
 }

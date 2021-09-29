@@ -1,5 +1,4 @@
-{
-  "wavedata": [
+[
     {
       "EnemyName": "Enemy",
       "Count": 4,
@@ -40,5 +39,4 @@
       "Hp": 300,
       "Defense": 10
     }
-  ]
-}
+]

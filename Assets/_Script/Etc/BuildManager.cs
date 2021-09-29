@@ -12,6 +12,7 @@ public class BuildManager : Singleton<BuildManager>
     [SerializeField] Transform nodeParent;
 
     Color origin;
+    float offsetY = 0.25f;
 
     private void Start()
     {
@@ -23,37 +24,45 @@ public class BuildManager : Singleton<BuildManager>
         preview.SetActive(Player.Instance.isBuild);
     }
 
-    public GameObject BuildTower()
+    GameObject GetTower()
     {
         int index = Random.Range(0, tower.Length);
 
         return tower[index];
     }
+    public void Build(Node node)
+    {
+        GameObject obj = GetTower();
+        node.tower = obj.GetComponent<Tower>();
+        Vector3 buildPos = new Vector3(node.transform.position.x, offsetY, node.transform.position.z);
+        node.towerObj = Instantiate(obj, buildPos, Quaternion.identity);
+        Player.Instance.Money -= 20;
+        Player.Instance.ChangeStateNone();
+    }
+
     public void SwitchColor(bool isBuild)
     {
         preview.GetComponent<Renderer>().material.color = isBuild ? origin : unableBuildColor; 
     }
 
-    public bool Combine(Node selectNode)
+    bool IsCombine(Node selectNode)
     {
-        if (selectNode.Tower == null)
+        if (selectNode.tower == null)
             return false;
 
-        if (selectNode.Tower.rank == Tower.TOWER_RANK.Epic)
+        if (selectNode.tower.rank == Tower.TOWER_RANK.Epic)
             return false;
 
         for(int i= 0; i < nodeParent.transform.childCount; i++)
         {
             Node node = nodeParent.GetChild(i).GetComponent<Node>();
 
-            if( node.Tower != null)
+            if( node.tower != null)
             {
-                if(selectNode!=node && selectNode.Tower == node.Tower)
+                if(selectNode!=node && selectNode.tower == node.tower)
                 {
                     node.RemoveTower();
                     selectNode.RemoveTower();
-
-
 
                     return true;
                 }    
@@ -63,7 +72,19 @@ public class BuildManager : Singleton<BuildManager>
         return false;
     }
 
-    public GameObject ConbineTower(Tower tower)
+    public void Combine(Node node)
+    {
+        GameObject obj = ConbineTower(node.tower);
+        if (IsCombine(node))
+        {
+            node.tower = obj.GetComponent<Tower>();
+            Vector3 buildPos = new Vector3(node.transform.position.x, offsetY, node.transform.position.z);
+            node.towerObj = Instantiate(obj, buildPos, Quaternion.identity);
+            Player.Instance.state = Player.PLAYER_STATE.None;
+        }
+    }
+
+    GameObject ConbineTower(Tower tower)
     {
         if (tower == null)
             return null;

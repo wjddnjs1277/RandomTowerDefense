@@ -10,9 +10,7 @@ public class Tower : MonoBehaviour
         Rare,
         Epic,
     }
-    // 사거리, 목표, 미사일  이펙트 .,...
-    // 사거리 안이면 목표 하나를 공격
-    // 타겟이 거리를 벗어나면 타겟 다시설정
+
     [SerializeField] float power;           // 공격량
     [SerializeField] float range;           // 거리
     [SerializeField] float attackRate;      // 공격주기
@@ -24,8 +22,6 @@ public class Tower : MonoBehaviour
 
 
     float nextAttackTime;
-
-    bool isAttack;          // 공격이 가능한가
 
     public float Power => power;
 
@@ -79,6 +75,9 @@ public class Tower : MonoBehaviour
 
     void Attack()
     {
+        if (target.GetComponent<Statable>().Hp == 0)
+            return;
+
         if( nextAttackTime <= Time.time)
         {
             nextAttackTime = Time.time + attackRate;
