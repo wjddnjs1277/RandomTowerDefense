@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] public float speed;
 
 
     Transform wayPointParent;
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
     {
 
     }
-    public void OnDead()
+    public virtual void OnDead()
     {
         WaveSpawner.EnemiesAlive -= 1;
         Player.Instance.Money += 5;

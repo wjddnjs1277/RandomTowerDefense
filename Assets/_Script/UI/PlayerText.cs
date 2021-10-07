@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerText : Singleton<PlayerText>
 {
-    [SerializeField] Text playerLife;
-    [SerializeField] Text playerMoney;
+    [SerializeField] InfoText playerLife;
+    [SerializeField] InfoText playerMoney;
 
-
-    public void ShowText(int life, int money)
+    public void ShowLife(string name, string value)
     {
-        playerLife.text = string.Format("Life : {0}", life);
-        playerMoney.text = string.Format("Money : {0}", money);
+        playerLife.Show(name, value);
+    }
+    public void ShowMoney(string name, string value)
+    {
+        playerMoney.Show(name, value);
     }
 }

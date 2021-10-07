@@ -231,6 +231,8 @@ MonoBehaviour:
   power: 150
   range: 4
   attackRate: 1
+  upgradeCount: 0
+  addPower: 40
   attackParticleName: LightEffect3
   enemyLayer:
     serializedVersion: 2

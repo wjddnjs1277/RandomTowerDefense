@@ -21,7 +21,8 @@ public class BuildManager : Singleton<BuildManager>
 
     private void Update()
     {
-        preview.SetActive(Player.Instance.isBuild);
+        preview.SetActive(Player.Instance.state == Player.PLAYER_STATE.Building);
+        preview.GetComponent<Renderer>().material.color = Player.Instance.Money >= 20 ? origin : unableBuildColor;
     }
 
     GameObject GetTower()
@@ -33,16 +34,44 @@ public class BuildManager : Singleton<BuildManager>
     public void Build(Node node)
     {
         GameObject obj = GetTower();
-        node.tower = obj.GetComponent<Tower>();
         Vector3 buildPos = new Vector3(node.transform.position.x, offsetY, node.transform.position.z);
         node.towerObj = Instantiate(obj, buildPos, Quaternion.identity);
+        node.tower = node.towerObj.GetComponent<Tower>();
         Player.Instance.Money -= 20;
-        Player.Instance.ChangeStateNone();
+        Player.Instance.ChangeState(0);
+        ButtonManager.Instance.SwitchWindow();
     }
 
     public void SwitchColor(bool isBuild)
     {
         preview.GetComponent<Renderer>().material.color = isBuild ? origin : unableBuildColor; 
+    }
+
+    bool IsSell(Node selectNode)
+    {
+        if (selectNode.tower.rank != Tower.TOWER_RANK.Epic)
+            return true;
+
+        return false;
+    }
+    public void SellTower(Node selectNode)
+    {
+        int sellPrice = 0;
+        if(IsSell(selectNode))
+        {
+            switch(selectNode.tower.rank)
+            {
+                case Tower.TOWER_RANK.Normal:
+                    sellPrice = 10;
+                    break;
+                case Tower.TOWER_RANK.Rare:
+                    sellPrice = 20;
+                    break;
+            }
+            selectNode.RemoveTower();
+            Player.Instance.Money += sellPrice;
+            Player.Instance.ChangeState(0);
+        }
     }
 
     bool IsCombine(Node selectNode)
@@ -59,7 +88,7 @@ public class BuildManager : Singleton<BuildManager>
 
             if( node.tower != null)
             {
-                if(selectNode!=node && selectNode.tower == node.tower)
+                if(selectNode!=node && selectNode.towerObj.name == node.towerObj.name)
                 {
                     node.RemoveTower();
                     selectNode.RemoveTower();
@@ -77,10 +106,12 @@ public class BuildManager : Singleton<BuildManager>
         GameObject obj = ConbineTower(node.tower);
         if (IsCombine(node))
         {
-            node.tower = obj.GetComponent<Tower>();
+            Debug.Log("buildemanager combine");
             Vector3 buildPos = new Vector3(node.transform.position.x, offsetY, node.transform.position.z);
             node.towerObj = Instantiate(obj, buildPos, Quaternion.identity);
+            node.tower = node.towerObj.GetComponent<Tower>();
             Player.Instance.state = Player.PLAYER_STATE.None;
+            ButtonManager.Instance.SwitchWindow();
         }
     }
 

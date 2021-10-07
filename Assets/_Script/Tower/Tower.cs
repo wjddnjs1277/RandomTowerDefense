@@ -14,6 +14,8 @@ public class Tower : MonoBehaviour
     [SerializeField] float power;           // 공격량
     [SerializeField] float range;           // 거리
     [SerializeField] float attackRate;      // 공격주기
+    [SerializeField] int upgradeCount;
+    [SerializeField] float addPower;
     [SerializeField] string attackParticleName;
     [SerializeField] LayerMask enemyLayer;
 
@@ -24,6 +26,10 @@ public class Tower : MonoBehaviour
     float nextAttackTime;
 
     public float Power => power;
+    public float Range => range;
+    public float AttackRate => attackRate;
+    public int Upgrade => upgradeCount;
+    public float AddPower => addPower;
 
     private void Start()
     {
@@ -33,6 +39,7 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
+        UpdateTower();
         TargetSetting();
         TargetLook();
 
@@ -96,12 +103,27 @@ public class Tower : MonoBehaviour
         message.attacker = gameObject;
         message.attackerName = gameObject.name;
         message.contactPoint = contactPoint;
-        message.amount = power;
+        message.amount = power + (upgradeCount * addPower);
         message.damageEffectName = attackParticleName;
 
         target.OnDamaged(message);
     }
 
+    public void UpdateTower()
+    {
+        switch (rank)
+        {
+            case TOWER_RANK.Normal:
+                upgradeCount = Player.Instance.myUpgrade.normal;
+                break;
+            case TOWER_RANK.Rare:
+                upgradeCount = Player.Instance.myUpgrade.rare;
+                break;
+            case TOWER_RANK.Epic:
+                upgradeCount = Player.Instance.myUpgrade.epic;
+                break;
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {

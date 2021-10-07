@@ -232,6 +232,8 @@ MonoBehaviour:
   power: 200
   range: 7
   attackRate: 2
+  upgradeCount: 0
+  addPower: 50
   attackParticleName: ExplosionEffect
   enemyLayer:
     serializedVersion: 2

@@ -298,6 +298,8 @@ MonoBehaviour:
   power: 100
   range: 7
   attackRate: 1
+  upgradeCount: 0
+  addPower: 20
   attackParticleName: BloodEffect1
   enemyLayer:
     serializedVersion: 2

@@ -67,6 +67,8 @@ MonoBehaviour:
   power: 300
   range: 3
   attackRate: 2
+  upgradeCount: 0
+  addPower: 100
   attackParticleName: DarkEffect1
   enemyLayer:
     serializedVersion: 2

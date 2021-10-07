@@ -52,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -125,6 +126,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -296,7 +298,10 @@ MonoBehaviour:
   power: 30
   range: 3
   attackRate: 1.5
+  upgradeCount: 0
+  addPower: 15
   attackParticleName: CrossBow1Effect
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  rank: 0

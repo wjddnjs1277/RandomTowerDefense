@@ -67,6 +67,8 @@ MonoBehaviour:
   power: 100
   range: 3
   attackRate: 2
+  upgradeCount: 0
+  addPower: 40
   attackParticleName: AttackEffect2
   enemyLayer:
     serializedVersion: 2

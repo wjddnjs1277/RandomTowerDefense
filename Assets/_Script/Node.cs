@@ -28,6 +28,13 @@ public class Node : MonoBehaviour
             return tower != null && Player.Instance.state == Player.PLAYER_STATE.Combine;
         }
     }
+    bool isSellTower
+    {
+        get
+        {
+            return tower != null && Player.Instance.state == Player.PLAYER_STATE.Selling;
+        }
+    }
 
     void Start()
     {
@@ -89,6 +96,22 @@ public class Node : MonoBehaviour
         {
             buildManager.Combine(this);
         }
+
+        if(isSellTower)
+        {
+            buildManager.SellTower(this);
+        }
+
+        if (tower != null)
+        {
+            TowerInfoManager.Instance.tower = tower;
+            TowerInfoManager.Instance.Switch(true);
+        }
+        else
+        {
+            TowerInfoManager.Instance.tower = null;
+            TowerInfoManager.Instance.Switch(false);
+        }
     }
 
     private void OnMouseOver()
@@ -101,10 +124,5 @@ public class Node : MonoBehaviour
         {
             buildManager.SwitchColor(false);
         }
-    }
-
-    private void OnMouseExit()
-    {
-
     }
 }

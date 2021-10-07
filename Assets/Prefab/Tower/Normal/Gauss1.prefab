@@ -67,10 +67,13 @@ MonoBehaviour:
   power: 20
   range: 3
   attackRate: 1
+  upgradeCount: 0
+  addPower: 10
   attackParticleName: Gauss1Effect
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  rank: 0
 --- !u!1 &6712099033467875795
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +126,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -205,6 +209,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -286,6 +291,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1

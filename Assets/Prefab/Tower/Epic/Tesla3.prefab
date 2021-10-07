@@ -9711,6 +9711,8 @@ MonoBehaviour:
   power: 150
   range: 3
   attackRate: 1.5
+  upgradeCount: 0
+  addPower: 50
   attackParticleName: ElectricEffect2
   enemyLayer:
     serializedVersion: 2

@@ -5045,6 +5045,8 @@ MonoBehaviour:
   power: 50
   range: 3
   attackRate: 1.5
+  upgradeCount: 0
+  addPower: 15
   attackParticleName: SparkEffect1
   enemyLayer:
     serializedVersion: 2
